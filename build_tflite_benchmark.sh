@@ -14,4 +14,4 @@ fi
 
 cd tflite-micro
 make -f tensorflow/lite/micro/tools/make/Makefile test_$BENCHMARK_NAME\_test TOOLCHAIN_PREFIX=$TOOLCHAIN_PREFIX TARGET_ARCH=$TARGET_ARCH -j48
-cp gen/linux_riscv64_default/bin/$BENCHMARK_NAME\_test ../$BENCHMARK_NAME\_test_123123
+cp gen/linux_riscv64_default/bin/$BENCHMARK_NAME\_test ../$BENCHMARK_NAME\_test

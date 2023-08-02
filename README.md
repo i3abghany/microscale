@@ -1,8 +1,10 @@
 # microscale
 
-Currently, the Keyword Spotting MLTiny Perf benchmark is ported to the TFLite Micro C++ framework. Compiling and executing a binary that runs inference of the Keyword Spotting dataset inside GEM5 can be done as follows.
+Currently, the Keyword Spotting, Anomaly Detection, and Visual Wake Words MLTiny Perf benchmarks are ported to the TFLite Micro C++ framework. Compiling and executing a binary that runs inference using one of the benchmarks using the baseline system configuration inside GEM5 can be done as follows.
 
 ```shell
+
+# Initialize the tflite-micro fork submodule
 git submodule init
 git submodule update
 
@@ -10,9 +12,9 @@ git submodule update
 ./fetch_riscv_toolchain.sh     
 export PATH=$PATH:$HOME/cross/riscv/bin
 
-# Compiles TFLite Micro and the Keyword Spotting benchmark code & links them together
-./build_tflite_benchmark.sh    
+# Compiles TFLite Micro and the Keyword Spotting benchmark and produces an executable in the current directory
+./build_tflite_benchmark.sh keyword_spotting
 
 # Runs the generated binary inside GEM5. Assumes that RISCV gem5.opt is available in $M5_PATH/build
-./run_system.sh $M5_PATH       
+./run_system.sh $M5_PATH ./keyword_spotting_test
 ```
