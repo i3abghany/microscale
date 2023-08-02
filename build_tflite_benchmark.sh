@@ -9,6 +9,7 @@ then
     echo "Benchmarks supported are: keyword_spotting"
     echo "                          anomaly_detection"
     echo "                          visual_wake_words"
+    echo "                          image_classification"
     exit -1
 fi
 
