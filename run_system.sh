@@ -1,13 +1,7 @@
 M5_PATH=$1
 BENCHMARK_EXECUTABLE=$2
 
-if [[ "$M5_PATH" = "" ]]
-then
-    echo "usage: $0 M5_PATH BENCHMARK_EXECUTABLE"
-    exit -1
-fi
-
-if [[ "$BENCHMARK_EXECUTABLE" = "" ]]
+if [ "$M5_PATH" = "" ] || [ "$BENCHMARK_EXECUTABLE" = "" ]
 then
     echo "usage: $0 M5_PATH BENCHMARK_EXECUTABLE"
     exit -1
