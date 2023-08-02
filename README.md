@@ -13,6 +13,7 @@ git submodule update
 export PATH=$PATH:$HOME/cross/riscv/bin
 
 # Compiles TFLite Micro and the Keyword Spotting benchmark and produces an executable in the current directory
+# You may need to change the dataset directory in tflite-micro/tensorflow/lite/micro/examples/keyword_spotting/kws_test.cc
 ./build_tflite_benchmark.sh keyword_spotting
 
 # Runs the generated binary inside GEM5. Assumes that RISCV gem5.opt is available in $M5_PATH/build
