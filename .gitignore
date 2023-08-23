@@ -1,4 +1,5 @@
 *_test
+*.bin
 m5out
 out*
 exp.sh
