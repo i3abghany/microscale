@@ -1,3 +1,6 @@
 [submodule "tflite-micro"]
 	path = tflite-micro
 	url = https://github.com/i3abghany/tflite-micro
+[submodule "tensorflow"]
+	path = tensorflow
+	url = https://github.com/i3abghany/tensorflow
