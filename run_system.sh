@@ -11,19 +11,19 @@ $M5_PATH/build/RISCV/gem5.fast                   \
     --outdir=out/m5out_$BENCHMARK_EXECUTABLE     \
     $M5_PATH/configs/example/se.py               \
     --cmd=./$BENCHMARK_EXECUTABLE                \
-    --sys-clock=225MHz                           \
-    --cpu-clock=225MHz                           \
+    --warmup-insts=100000000                     \
+    --sys-clock=1GHz                             \
+    --cpu-clock=1GHz                             \
     --cpu-type=MinorCPU                          \
     --param='system.cpu[0].decodeInputWidth=1'   \
     --param='system.cpu[0].executeInputWidth=1'  \
     --param='system.cpu[0].executeIssueLimit=1'  \
     --caches                                     \
-    --l1d_size=32kB                              \
-    --l1i_size=32kB                              \
-    --l1d_assoc=4                                \
-    --l1i_assoc=4                                \
-    --l1d-hwp-type=StridePrefetcher              \
-    --cacheline_size=64                          \
+    --l1d_size=8kB                               \
+    --l1i_size=8kB                               \
+    --l1d_assoc=2                                \
+    --l1i_assoc=2                                \
+    --cacheline_size=32                          \
     --mem-type=LPDDR3_1600_1x32                  \
-    --mem-size=256MB                             \
+    --mem-size=128MB                             \
     --bp-type=BiModeBP                           &
