@@ -6,14 +6,13 @@ BENCHMARK_NAME=$1
 GIT_REPO_PATH=$(git rev-parse --show-toplevel)
 REV_PARSE_PATH=$(echo $GIT_REPO_PATH | sed 's_/_\\/_g')
 
-if [[ ! "$BENCHMARK_NAME" =~ ^(all|clean|keyword_spotting|anomaly_detection|visual_wake_words|image_classification|mnist_lstm|mnist_lenet|resnet50)$ ]]; then
+if [[ ! "$BENCHMARK_NAME" =~ ^(all|clean|keyword_spotting|anomaly_detection|visual_wake_words|image_classification|mnist_lenet|resnet50)$ ]]; then
     echo "Usage: $0 BENCHMARK_NAME"
     echo "Supported benchmarks are: keyword_spotting"
     echo "                          anomaly_detection"
     echo "                          visual_wake_words"
     echo "                          image_classification"
     echo "                          mnist_lenet"
-    echo "                          mnist_lstm"
     echo "                          resnet50"
     exit -1
 fi
@@ -23,7 +22,6 @@ declare -A shortnames=(
     ["visual_wake_words"]="vww"
     ["keyword_spotting"]="kws"
     ["image_classification"]="ic"
-    ["mnist_lstm"]="lstm"
     ["mnist_lenet"]="lenet"
     ["resnet50"]="ic"
 )
@@ -38,7 +36,7 @@ function compile() {
 if [[ "$1" = "clean" ]]; then
     for item in "${!shortnames[@]}"
     do
-        echo "rm ${item}_test.bin"
+        rm ${item}_test.bin
     done
     exit 0
 fi
