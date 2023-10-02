@@ -19,11 +19,11 @@ $M5_PATH/build/RISCV/gem5.fast                   \
     --param='system.cpu[0].executeInputWidth=1'  \
     --param='system.cpu[0].executeIssueLimit=1'  \
     --caches                                     \
-    --l1d_size=8kB                               \
-    --l1i_size=8kB                               \
+    --l1d_size=32kB                              \
+    --l1i_size=32kB                              \
     --l1d_assoc=2                                \
     --l1i_assoc=2                                \
     --cacheline_size=32                          \
     --mem-type=LPDDR3_1600_1x32                  \
-    --mem-size=128MB                             \
+    --mem-size=256MB                             \
     --bp-type=BiModeBP                           &
