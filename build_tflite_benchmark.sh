@@ -47,7 +47,7 @@ function prepare_resnet50() {
     MODEL_FILE="$GIT_REPO_PATH/tflite-micro/tensorflow/lite/micro/examples/resnet50/ic_model_data.h"
     if [ ! -f $MODEL_FILE ]; then
         pushd "$GIT_REPO_PATH/tflite-micro/tensorflow/lite/micro/models/"      # To circumvent xxd array naming convention.
-        xxd -i "resnet50_model.tflite" > $MODEL_FILE
+        xxd -i "resnet50_model_new.tflite" > $MODEL_FILE
         popd
     fi
 }
