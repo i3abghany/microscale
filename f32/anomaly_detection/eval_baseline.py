@@ -9,6 +9,7 @@ import pickle
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from utils import *
+from check import clip_in_range
 
 
 def run_inference(model, all_data, y_trues):
@@ -70,8 +71,11 @@ if __name__ == "__main__":
 
         print(f"Flipping bit {bit_idx} in layer {layer_idx}, weight {weight_idx}")
         model_flip_bit(model, layer_idx, weight_idx, bit_idx)
-
         print(f"Performance after {i+1} bits: ", run_inference(model, all_data, y_true))
 
-        if not args.cumulative:
+        if args.defend:
+            clip_in_range(model, min_weight, max_weight)
+            print(f"Performance with defence: ", run_inference(model, all_data, y_true))
+
+        if not args.cumulative and not args.defend:
             model_flip_bit(model, layer_idx, weight_idx, bit_idx)

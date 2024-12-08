@@ -3,11 +3,23 @@ import argparse
 
 
 def float_toggle_bit(f, b):
-    modified_weight = f
-    as_int = modified_weight.view(np.uint32)
+    if isinstance(f, np.ndarray):
+        assert f.dtype == np.float32, "Array must be of type np.float32"
+
+    as_int = f.view(np.uint32)
     as_int = as_int ^ np.uint32(1 << b)
-    modified_weight = as_int.view(np.float32)
-    return modified_weight
+    f = as_int.view(np.float32)
+    return f
+
+
+def float_reset_bit(f, b):
+    if isinstance(f, np.ndarray):
+        assert f.dtype == np.float32, "Array must be of type np.float32"
+
+    as_int = f.view(np.uint32)
+    as_int = as_int & np.uint32(~(1 << b))
+    f = as_int.view(np.float32)
+    return f
 
 
 def model_flip_bit(model, layer_idx, flat_weight_idx, bit_idx):
@@ -39,6 +51,13 @@ def get_argparser():
         type=str,
         default="./data/",
         help="Path to the pickled data file",
+    )
+
+    parser.add_argument(
+        "--defend",
+        type=bool,
+        default=True,
+        help="Enable the FP32 model defence",
     )
 
     parser.add_argument(
