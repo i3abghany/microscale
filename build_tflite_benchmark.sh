@@ -39,7 +39,7 @@ declare -A shortnames=(
 function compile() {
     cd tflite-micro
     sed -i "s/REV_PARSE_PATH_PLACEHOLDER/$REV_PARSE_PATH/g" tensorflow/lite/micro/examples/$1/"${shortnames[$1]}"_test.cc
-    make -f tensorflow/lite/micro/tools/make/Makefile test_$1\_test TOOLCHAIN_PREFIX=$TOOLCHAIN_PREFIX TARGET_ARCH=$TARGET_ARCH -j96
+    make -f tensorflow/lite/micro/tools/make/Makefile test_$1\_test TOOLCHAIN_PREFIX=$TOOLCHAIN_PREFIX TARGET_ARCH=$TARGET_ARCH -j $JOBS
     cp gen/linux_riscv64_default/bin/$1_test ../$1\_test.bin
 }
 
@@ -64,7 +64,7 @@ function prepare_densenet121() {
 if [[ "$1" = "clean" ]]; then
     for item in "${!shortnames[@]}"
     do
-        rm ${item}_test.bin
+        rm -f ${item}_test.bin
     done
     exit 0
 fi
