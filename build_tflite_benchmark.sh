@@ -6,7 +6,15 @@ BENCHMARK_NAME=$1
 GIT_REPO_PATH=$(git rev-parse --show-toplevel)
 REV_PARSE_PATH=$(echo $GIT_REPO_PATH | sed 's_/_\\/_g')
 
-if [[ ! "$BENCHMARK_NAME" =~ ^(all|clean|keyword_spotting|anomaly_detection|visual_wake_words|image_classification|mnist_lenet|densenet121|resnet50)$ ]]; then
+if [ "$2" = "-j" ] && [ "$#" -gt 2 ]; then
+    JOBS=$3
+else
+    JOBS=4
+fi
+
+valid_benchmarks=("all" "clean" "keyword_spotting" "anomaly_detection" "visual_wake_words" "image_classification" "mnist_lenet" "densenet121" "resnet50")
+
+if [[ ! " ${valid_benchmarks[@]} " =~ " ${BENCHMARK_NAME} " ]]; then
     echo "Usage: $0 BENCHMARK_NAME"
     echo "Supported benchmarks are: keyword_spotting"
     echo "                          anomaly_detection"
