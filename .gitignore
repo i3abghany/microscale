@@ -5,3 +5,4 @@ out*
 exp.sh
 nohup_output/
 __pycache__/
+*.pkl
