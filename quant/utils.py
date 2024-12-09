@@ -41,6 +41,20 @@ def get_argparser():
     )
 
     parser.add_argument(
+        "--model_path",
+        type=str,
+        help="Path to the model",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--n_bits",
+        type=int,
+        default=1,
+        help="Number of bits to flip",
+    )
+
+    parser.add_argument(
         "--data_dir",
         type=str,
         default="./data/",
@@ -52,20 +66,6 @@ def get_argparser():
         default=False,
         action="store_true",
         help="Enable TMR for the model",
-    )
-
-    parser.add_argument(
-        "--n_bits",
-        type=int,
-        default=1,
-        help="Number of bits to flip",
-    )
-
-    parser.add_argument(
-        "--model_path",
-        type=str,
-        default="../models/ad.tflite",
-        help="Path to the model",
     )
 
     parser.add_argument(
