@@ -32,12 +32,11 @@ def run_inference(model, all_data, y_trues):
 
 if __name__ == "__main__":
     args = get_argparser().parse_args()
-    model_file = "../models/model_ToyCar.hdf5"
-    if not os.path.exists(model_file):
-        print(f"Model file not found: {model_file}")
+    if not os.path.exists(args.model_path):
+        print(f"Model file not found: {args.model_path}")
         sys.exit(-1)
 
-    model = keras_model.load_model(model_file)
+    model = keras_model.load_model(args.model_path)
     weights = model.get_weights()
     weight_indices = range(len(weights))
     lengths = []

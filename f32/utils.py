@@ -54,6 +54,13 @@ def get_argparser():
     )
 
     parser.add_argument(
+        "--model_path",
+        type=str,
+        help="Path to the model file",
+        required=True,
+    )
+
+    parser.add_argument(
         "--n_bits",
         type=int,
         default=1,
