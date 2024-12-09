@@ -61,13 +61,13 @@ if __name__ == "__main__":
         weight_idx = random.randint(0, weights[layer_idx].size - 1)
 
         if args.exp_only:
-            bit_idx = random.randint(22, 32)
+            bit_idx = random.randint(22, 31)
         elif args.mantissa_only:
             bit_idx = random.randint(0, 21)
         elif args.msb_only:
             bit_idx = 30
         else:
-            bit_idx = random.randint(0, 32)
+            bit_idx = random.randint(0, 31)
 
         print(f"Flipping bit {bit_idx} in layer {layer_idx}, weight {weight_idx}")
         model_flip_bit(model, layer_idx, weight_idx, bit_idx)
