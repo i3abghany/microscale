@@ -22,11 +22,7 @@ def run_inference(model_path, test_imgs, test_labels):
         interpreter.set_tensor(input_details[0]["index"], input_data)
         interpreter.invoke()
         output_data = interpreter.get_tensor(output_details[0]["index"])
-        predictions.append(
-            output_data.reshape(
-                10,
-            )
-        )
+        predictions.append(output_data.reshape((10,)))
     predictions = np.array(predictions)
 
     return np.mean(np.argmax(predictions, axis=1) == np.argmax(test_labels, axis=1))
