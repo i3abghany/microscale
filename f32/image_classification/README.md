@@ -4,13 +4,13 @@ The script `eval_fp32.py` evaluates cumulative bit flips in the [MLPerf Tiny](ht
 
 ## Usage
 
-The model is pre-trained and stored in `../models/resnet8_cifar10.h5` (ResNet-8). The training process is based on the [MLPerf Tiny](https://github.com/mlcommons/tiny) repository.
+The model is pre-trained and stored in `../models/resnet8_cifar10.h5` (ResNet-8). The training process is based on the [MLPerf Tiny](https://github.com/mlcommons/tiny) repository. We provide two extra models in the `models` directory compressed as `cf.tar.gz`.
 
 ```bash
 $ python eval_fp32.py --help
 
-usage: eval_fp32.py [-h] [--data_dir DATA_DIR] [--model_path MODEL_PATH] [--n_bits N_BITS] [--defend] [--exp_only]
-                    [--mantissa_only] [--msb_only]
+usage: eval_fp32.py [-h] [--data_dir DATA_DIR] --model_path MODEL_PATH [--n_bits N_BITS] [--defend]
+                    [--exp_only] [--mantissa_only] [--msb_only]
 
 Flip N bit in a model and evaluate the performance
 
