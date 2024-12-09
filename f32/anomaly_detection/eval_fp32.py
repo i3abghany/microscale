@@ -76,6 +76,3 @@ if __name__ == "__main__":
         if args.defend:
             clip_in_range(model, min_weight, max_weight)
             print(f"Performance with defence: ", run_inference(model, all_data, y_true))
-
-        if not args.cumulative and not args.defend:
-            model_flip_bit(model, layer_idx, weight_idx, bit_idx)

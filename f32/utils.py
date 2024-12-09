@@ -54,13 +54,6 @@ def get_argparser():
     )
 
     parser.add_argument(
-        "--defend",
-        type=bool,
-        default=True,
-        help="Enable the FP32 model defence",
-    )
-
-    parser.add_argument(
         "--n_bits",
         type=int,
         default=1,
@@ -68,31 +61,31 @@ def get_argparser():
     )
 
     parser.add_argument(
-        "--exp_only",
-        type=bool,
+        "--defend",
         default=False,
+        action="store_true",
+        help="Enable the FP32 model defence",
+    )
+
+    parser.add_argument(
+        "--exp_only",
+        default=False,
+        action="store_true",
         help="Flip only the exponent bits",
     )
 
     parser.add_argument(
         "--mantissa_only",
-        type=bool,
         default=False,
+        action="store_true",
         help="Flip only the mantissa bits",
     )
 
     parser.add_argument(
         "--msb_only",
-        type=bool,
         default=False,
+        action="store_true",
         help="Flip only the MSB of the exponent",
-    )
-
-    parser.add_argument(
-        "--cumulative",
-        type=bool,
-        default=True,
-        help="Flip bits cumulatively",
     )
 
     return parser
