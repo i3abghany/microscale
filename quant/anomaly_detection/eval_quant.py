@@ -20,10 +20,8 @@ def run_inference(y_true, data, model_path):
         data = all_data[i]
         y_pred = [0.0 for _ in data]
         for file_idx, datum in enumerate(data):
-            errors = numpy.mean(
-                numpy.square(datum - run_inference_one_sample(interpreter, datum)),
-                axis=1,
-            )
+            output = run_inference_one_sample(interpreter, datum)
+            errors = numpy.mean(numpy.square(datum - output), axis=1)
             y_pred[file_idx] = numpy.mean(errors)
 
         auc = metrics.roc_auc_score(y_true, y_pred)
