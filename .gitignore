@@ -7,3 +7,4 @@ nohup_output/
 __pycache__/
 *.pkl
 *.keras
+.env
