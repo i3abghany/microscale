@@ -8,3 +8,6 @@ __pycache__/
 *.pkl
 *.keras
 .env
+.data
+*.tar.gz
+quant/visual_wake_words/data
