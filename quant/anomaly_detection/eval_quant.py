@@ -58,11 +58,10 @@ def get_data(data_dir):
 if __name__ == "__main__":
     args = get_argparser().parse_args()
 
-    model_path = "../models/ad.tflite"
-    model_obj = ModelObject(model_path, defended=args.defend)
+    model_obj = ModelObject(args.model_path, defended=args.defend)
 
     y_trues, all_data = get_data(args.data_dir)
-    baseline_acc = run_inference(y_trues, all_data, model_path)
+    baseline_acc = run_inference(y_trues, all_data, args.model_path)
     print(f"Baseline AUC: {baseline_acc}")
 
     for _ in range(args.n_bits):
