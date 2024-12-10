@@ -95,4 +95,11 @@ def get_argparser():
         help="Flip only the MSB of the exponent",
     )
 
+    parser.add_argument(
+        "--verbose",
+        default=False,
+        action="store_true",
+        help="Print all the bits being flipped",
+    )
+
     return parser

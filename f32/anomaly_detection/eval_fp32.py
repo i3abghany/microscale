@@ -8,8 +8,8 @@ import tensorflow as tf
 import pickle
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from utils import get_argparser, model_flip_bit, get_weight_ranges
-from check import clip_in_range
+from utils import get_argparser
+from model_object import ModelObject
 
 
 def run_inference(model, all_data, y_trues):
@@ -22,12 +22,25 @@ def run_inference(model, all_data, y_trues):
             pred = model.predict(datum, verbose=False)
             errors = numpy.mean(numpy.square(datum - pred), axis=1)
             y_pred[file_idx] = numpy.mean(errors)
-
-        auc = metrics.roc_auc_score(y_true, y_pred)
+        try:
+            auc = metrics.roc_auc_score(y_true, y_pred)
+        except ValueError as e:
+            print("Model output corrupted - ", e)
         performance.append(auc)
 
-    averaged_performance = numpy.mean(numpy.array(performance, dtype=float), axis=0)
-    return averaged_performance
+    avg_auc = numpy.mean(numpy.array(performance, dtype=float), axis=0)
+    return avg_auc
+
+
+def get_data(data_dir):
+    with open(os.path.join(data_dir, "pickled_data.pkl"), "rb") as f:
+        all_data = pickle.load(f)
+
+    with open(os.path.join(data_dir, "y_true.pkl"), "rb") as f:
+        y_true = pickle.load(f)
+
+    assert len(all_data) == len(y_true)
+    return all_data[:1], y_true[:1]
 
 
 if __name__ == "__main__":
@@ -36,42 +49,14 @@ if __name__ == "__main__":
         print(f"Model file not found: {args.model_path}")
         sys.exit(-1)
 
-    model = keras_model.load_model(args.model_path)
-    weights = model.get_weights()
-    weight_indices = range(len(weights))
-    lengths = []
+    all_data, y_true = get_data(args.data_dir)
+    obj = ModelObject(keras_model.load_model(args.model_path))
 
-    for i in weight_indices:
-        lengths.append(weights[i].size)
-
-    min_weight, max_weight = get_weight_ranges(model)
-
-    with open(os.path.join(args.data_dir, "pickled_data.pkl"), "rb") as f:
-        all_data = pickle.load(f)
-
-    with open(os.path.join(args.data_dir, "y_true.pkl"), "rb") as f:
-        y_true = pickle.load(f)
-
-    assert len(all_data) == len(y_true)
-
-    print(f"Performance before flipping: ", run_inference(model, all_data, y_true))
+    print(f"Performance before flipping: ", run_inference(obj.get_model(), all_data, y_true))
     for i in range(args.n_bits):
-        layer_idx = random.choices(weight_indices, weights=lengths, k=1)[0]
-        weight_idx = random.randint(0, weights[layer_idx].size - 1)
-
-        if args.exp_only:
-            bit_idx = random.randint(22, 31)
-        elif args.mantissa_only:
-            bit_idx = random.randint(0, 21)
-        elif args.msb_only:
-            bit_idx = 30
-        else:
-            bit_idx = random.randint(0, 31)
-
-        print(f"Flipping bit {bit_idx} in layer {layer_idx}, weight {weight_idx}")
-        model_flip_bit(model, layer_idx, weight_idx, bit_idx)
-        print(f"Performance after {i+1} bits: ", run_inference(model, all_data, y_true))
+        obj.flip_bit(args.exp_only, args.msb_only, args.mantissa_only, args.verbose)
+        print(f"Performance after {i+1} bits: ", run_inference(obj.get_model(), all_data, y_true))
 
         if args.defend:
-            clip_in_range(model, min_weight, max_weight)
-            print(f"Performance with defence: ", run_inference(model, all_data, y_true))
+            obj.clip()
+            print(f"Performance with defence: ", run_inference(obj.get_model(), all_data, y_true))

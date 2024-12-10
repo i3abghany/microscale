@@ -10,6 +10,7 @@ import pickle
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from utils import get_argparser, model_flip_bit, get_weight_ranges
 from check import clip_in_range
+from model_object import ModelObject
 
 
 def load_cifar10():
@@ -30,43 +31,23 @@ if __name__ == "__main__":
     test_data, test_labels = load_cifar10()
 
     args = get_argparser().parse_args()
-    model_file = "../models/resnet8_cifar10.h5"
-    if not os.path.exists(model_file):
-        print(f"Model file not found: {model_file}")
+    if not os.path.exists(args.model_path):
+        print(f"Model file not found: {args.model_path}")
         sys.exit(-1)
 
-    model = tf.keras.models.load_model(model_file)
-    weights = model.get_weights()
-    weight_indices = range(len(weights))
-    lengths = []
-
-    for i in weight_indices:
-        lengths.append(weights[i].size)
-
-    min_weight, max_weight = get_weight_ranges(model)
+    obj = ModelObject(tf.keras.models.load_model(args.model_path))
+    model = obj.get_model()
 
     acc = model.evaluate(x=test_data, y=test_labels, batch_size=64, verbose=1, return_dict=True)["accuracy"]
     print(f"Accuracy before flipping: ", acc)
+
     for i in range(args.n_bits):
-        layer_idx = random.choices(weight_indices, weights=lengths, k=1)[0]
-        weight_idx = random.randint(0, weights[layer_idx].size - 1)
-
-        if args.exp_only:
-            bit_idx = random.randint(22, 31)
-        elif args.mantissa_only:
-            bit_idx = random.randint(0, 21)
-        elif args.msb_only:
-            bit_idx = 30
-        else:
-            bit_idx = random.randint(0, 31)
-
-        print(f"Flipping bit {bit_idx} in layer {layer_idx}, weight {weight_idx}")
-        model_flip_bit(model, layer_idx, weight_idx, bit_idx)
+        obj.flip_bit(args.exp_only, args.msb_only, args.mantissa_only, args.verbose)
 
         acc = model.evaluate(x=test_data, y=test_labels, batch_size=64, verbose=0, return_dict=True)["accuracy"]
         print(f"Accuracy after {i+1} bits: ", acc)
 
         if args.defend:
-            clip_in_range(model, min_weight, max_weight)
+            obj.clip()
             acc = model.evaluate(x=test_data, y=test_labels, batch_size=64, verbose=0, return_dict=True)["accuracy"]
             print(f"Accuracy with defence: ", acc)
