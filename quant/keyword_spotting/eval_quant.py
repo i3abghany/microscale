@@ -4,9 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import tensorflow as tf
 import numpy as np
-import random
 
-import kws_util
 import get_dataset as kws_data
 from model_object import ModelObject
 from utils import get_argparser

@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os, pickle
 
-import kws_util
 import keras_model as models
 
 word_labels = ["Down", "Go", "Left", "No", "Off", "On", "Right",
