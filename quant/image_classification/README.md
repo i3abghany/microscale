@@ -4,7 +4,7 @@ The script `eval_quant.py` evaluates cumulative bit flips in the [MLPerf Tiny](h
 
 ## Usage
 
-The model is pre-trained and stored in `../models/ic.tflite` (ResNet-8). The training process is described in the [MLPerf Tiny](https://github.com/mlcommons/tiny) repository.
+The model is pre-trained and stored in `../models/cifar10_resnet8.tflite`. The training process is described in the [MLPerf Tiny](https://github.com/mlcommons/tiny) repository. We also provide two other models: `cifar10_densenet121.tflite` and `cifar10_resnet50.tflite`.
 
 ```bash
 $ python eval_quant.py --help
