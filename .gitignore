@@ -6,8 +6,8 @@ exp.sh
 nohup_output/
 __pycache__/
 *.pkl
-*.keras
 .env
 .data
-*.tar.gz
+*.keras
 quant/visual_wake_words/data
+quant/visual_wake_words/vw_coco2014_96.tar.gz
