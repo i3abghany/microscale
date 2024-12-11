@@ -1,13 +1,13 @@
 import os
 import sys
 import numpy
-import random
 from sklearn import metrics
 import keras_model
-import tensorflow as tf
 import pickle
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, parent_dir)
+
 from utils import get_argparser
 from model_object import ModelObject
 

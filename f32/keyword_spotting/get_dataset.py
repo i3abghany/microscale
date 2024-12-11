@@ -14,7 +14,6 @@ from tensorflow.python.platform import gfile
 
 import functools
 
-import matplotlib.pyplot as plt
 import numpy as np
 import os, pickle
 

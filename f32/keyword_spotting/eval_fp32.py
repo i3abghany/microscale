@@ -1,11 +1,12 @@
 import numpy as np
 import sys, os
 
-sys.path.insert(0, "..")
 from tensorflow import keras
 
-import keras_model
 import get_dataset as kws_data
+
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, parent_dir)
 
 from utils import get_argparser
 from model_object import ModelObject
