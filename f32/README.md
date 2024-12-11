@@ -38,4 +38,4 @@ optional arguments:
                         The benchmark to run. Supports either full name (e.g. keyword_spotting) or abbreviation (e.g. kws) (default: None)
 ```
 
-The pre-trained models are available under `../models/`. The models are trained based on the code from the [MLPerf Tiny](https://github.com/mlcommons/tiny) repository. The MLPerf Tiny benchmarks code is under the Apache License 2.0. The license can be found in the [MLPERF_TINY_LICENSE](../LICENSES/MLPERF_TINY_LICENSE) file.
+The pre-trained models are available under `../models/`. The models are trained based on the code from the [MLPerf Tiny](https://github.com/mlcommons/tiny) repository. The MLPerf Tiny benchmarks code is under the Apache License 2.0. The license can be found in the [MLPERF_TINY_LICENSE](../LICENSES/MLPERF_TINY_LICENSE.md) file.
