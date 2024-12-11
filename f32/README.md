@@ -2,8 +2,6 @@
 
 This directory contains the test scripts for the F32 models. Included are the following benchmarks:
 
-<!-- Table -->
-
 | Benchmark | Model(s) | Dataset | Description |
 | :--- | :--- | :--- | :--- |
 | [Keyword Spotting](./keyword_spotting) | DS_CNN | [Speech Commands](https://www.tensorflow.org/datasets/catalog/speech_commands) | Detects a keyword in a short audio clip |
