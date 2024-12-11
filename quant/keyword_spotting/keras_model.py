@@ -12,7 +12,6 @@ from tensorflow.lite.experimental.microfrontend.python.ops import audio_microfro
 from tensorflow import keras
 from tensorflow.keras import layers
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 from tensorflow.keras.models import Model
